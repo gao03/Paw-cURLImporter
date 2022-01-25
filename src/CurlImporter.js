@@ -94,10 +94,14 @@ class CurlImporter {
 
     // headers
     headers.forEach((value, key) => {
-      pawRequest.setHeader(
-        this._toDynamicString(key, true, true),
-        this._toDynamicString(value, true, true)
-      )
+      if (key == "Cookie") {
+        pawRequest.setHeader(key, this._convertCookieToDynamic(value))
+      } else {
+        pawRequest.setHeader(
+          this._toDynamicString(key, true, true),
+          this._toDynamicString(value, true, true)
+        )
+      }
     })
 
     // auth
@@ -166,6 +170,29 @@ class CurlImporter {
     // timeout
     if (timeout) {
       pawRequest.timeout = timeout * 1000
+    }
+  }
+
+  _convertCookieToDynamic(value) {
+    try {
+      const sp = value.split(';')
+      var cks = []
+      for (let idx = 0; idx < sp.length; idx++) {
+        const s = sp[idx];
+        const ss = s.split('=')
+        if (ss.length != 2) {
+          continue
+        }
+        cks.push([new DynamicString(ss[0]), new DynamicString(ss[1]), true])
+      }
+
+      var dv = new DynamicValue('com.luckymarmot.CookieDynamicValue', {
+        keyValues: cks
+      });
+      return new DynamicString(dv)
+    } catch (error) {
+      console.log(error)
+      return this._toDynamicString(value)
     }
   }
 
