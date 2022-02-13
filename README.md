@@ -1,4 +1,9 @@
-[![Build Status](https://travis-ci.org/luckymarmot/Paw-cURLImporter.svg?branch=master)](https://travis-ci.org/luckymarmot/Paw-cURLImporter)
+# 修改点
+1. 导入 curl 请求时，把 cookie 以 [DynamicValue](https://paw.cloud/docs/dynamic-values/cookies) 的形式导入
+![cookie](PawCurlImportCookie.png)
+
+---
+<!-- [![Build Status](https://travis-ci.org/luckymarmot/Paw-cURLImporter.svg?branch=master)](https://travis-ci.org/luckymarmot/Paw-cURLImporter) -->
 
 # cURL Importer (Paw Extension)
 
