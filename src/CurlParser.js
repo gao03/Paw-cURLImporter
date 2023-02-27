@@ -332,7 +332,9 @@ export default class CurlParser {
         const arg = this._popArg()
         const m = arg.match(/^([^\:\s]+)\s*\:\s*([\s\S]*)$/)
         if (!m) {
-            throw new Error('Invalid -H/--header value: ' + arg)
+            console.log('Invalid -H/--header value: ' + arg)
+            // throw new Error('Invalid -H/--header value: ' + arg)
+            return request;
         }
         return request.setIn(['headers', this._normalizeHeader(m[1])], m[2])
     }
